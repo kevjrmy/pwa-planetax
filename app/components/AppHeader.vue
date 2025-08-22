@@ -1,6 +1,6 @@
 <template>
   <header>
-    <NuxtImg v-if="isHome" src="/img/planetax_app_logo.png" height="80" width="80" alt="PlanetaX logo" class="logo" />
+    <NuxtImg v-if="isHome" src="/img/PlanetaX-app.png" alt="PlanetaX logo" class="logo" />
 
     <NuxtLink v-else to="/" class="back-btn">
       <Icon name="material-symbols:arrow-left-alt-rounded" style="height: 2rem; width: 2rem;" />
@@ -32,6 +32,12 @@ header {
 .logo {
   display: flex;
   justify-content: center;
+}
+
+img {
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
 }
 
 .back-btn {

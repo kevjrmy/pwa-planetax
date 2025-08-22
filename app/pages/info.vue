@@ -1,8 +1,6 @@
 <template>
   <main class="main-container">
     <div class="content-wrapper">
-      <h1 class="page-title">Info App</h1>
-
       <section id="team">
         <ul>
           <li>Director proyecto: Carlos</li>
@@ -99,7 +97,7 @@
       </div>
 
       <!-- Debug Info (only in development) -->
-      <div v-if="$dev" class="debug-section">
+      <div v-if="isDev" class="debug-section">
         <h3>Debug Info:</h3>
         <div class="debug-info">
           <div>Can Install: {{ canInstall }}</div>
@@ -128,6 +126,7 @@ const userAgent = ref('')
 const isPWA = ref(false)
 const isIOS = ref(false)
 const isAndroid = ref(false)
+const isDev = ref(false)
 
 // Store the deferred prompt
 let deferredPrompt = null
@@ -145,6 +144,9 @@ const detectEnvironment = () => {
 
     // Check if already installed (rough detection)
     isInstalled.value = isPWA.value
+
+    // Check development mode
+    isDev.value = import.meta.dev
   }
 }
 
@@ -232,8 +234,6 @@ onUnmounted(() => {
 
 <style scoped>
 .main-container {
-  min-height: 100vh;
-  background-color: #000;
   color: white;
   padding: 1.5rem;
 }
@@ -241,6 +241,7 @@ onUnmounted(() => {
 .content-wrapper {
   max-width: 28rem;
   margin: 0 auto;
+  margin-bottom: calc(80px + 1rem);
 }
 
 .page-title {

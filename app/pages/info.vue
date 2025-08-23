@@ -2,14 +2,30 @@
   <main class="main-container">
     <div class="content-wrapper">
       <h1 class="page-title">Info App</h1>
-      
+
       <!-- PWA Install Section -->
       <div class="install-section">
         <h2 class="section-title">
           <Icon name="mdi:download" />
           Instalar App
         </h2>
-        
+
+        <!-- Engagement Tip -->
+        <div v-if="showEngagementTip && !canInstall && !isInstalled" class="engagement-tip">
+          <div class="tip-icon">
+            <Icon name="mdi:clock-outline" />
+          </div>
+          <div class="tip-content">
+            <p class="tip-title">Esperando disponibilidad...</p>
+            <p class="tip-subtitle">
+              Navegadores necesitan ~30 segundos de actividad antes de mostrar la instalación.
+              <strong>Tiempo actual: {{ engagementTime }}s</strong>
+            </p>
+            <p class="tip-action">💡 Mientras tanto, puedes usar el menú del navegador: "Añadir a pantalla de inicio"
+            </p>
+          </div>
+        </div>
+
         <!-- Install Button -->
         <div v-if="canInstall" class="install-available">
           <p class="install-description">
@@ -20,7 +36,7 @@
             <span>Instalar PlanetaX App</span>
           </button>
         </div>
-        
+
         <!-- Already Installed -->
         <div v-else-if="isInstalled" class="install-status installed">
           <div class="status-icon success">
@@ -31,7 +47,7 @@
             PlanetaX está disponible en tu pantalla de inicio
           </p>
         </div>
-        
+
         <!-- Not Available -->
         <div v-else class="install-status not-available">
           <div class="status-icon info">
@@ -41,7 +57,7 @@
           <p class="status-subtitle">
             La instalación como app no está disponible en este momento
           </p>
-          
+
           <!-- Manual Instructions -->
           <div class="manual-instructions">
             <h3>Instalación manual:</h3>
@@ -62,7 +78,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- App Info -->
       <div class="benefits-section">
         <h2 class="section-title">
@@ -88,7 +104,7 @@
           </li>
         </ul>
       </div>
-      
+
       <!-- Debug Info (only in development) -->
       <div v-if="isDev" class="debug-section">
         <h3>Debug Info:</h3>
@@ -99,6 +115,7 @@
           <div>Is PWA: {{ isPWA }}</div>
           <div>Is iOS: {{ isIOS }}</div>
           <div>Is Android: {{ isAndroid }}</div>
+          <div>Engagement Time: {{ engagementTime }}s</div>
           <div>Debug Events: {{ debugInfo }}</div>
         </div>
       </div>
@@ -122,9 +139,12 @@ const isIOS = ref(false)
 const isAndroid = ref(false)
 const isDev = ref(false)
 const debugInfo = ref('')
+const engagementTime = ref(0)
+const showEngagementTip = ref(false)
 
 // Store the deferred prompt
 let deferredPrompt = null
+let engagementTimer = null
 
 // Detect device and environment
 const detectEnvironment = () => {
@@ -132,14 +152,14 @@ const detectEnvironment = () => {
     userAgent.value = navigator.userAgent
     isIOS.value = /iPad|iPhone|iPod/.test(navigator.userAgent)
     isAndroid.value = /Android/.test(navigator.userAgent)
-    
+
     // Check if running as PWA
-    isPWA.value = window.matchMedia('(display-mode: standalone)').matches || 
-                  window.navigator.standalone === true
-    
+    isPWA.value = window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true
+
     // Check if already installed (rough detection)
     isInstalled.value = isPWA.value
-    
+
     // Check development mode
     isDev.value = import.meta.dev
   }
@@ -149,14 +169,14 @@ const detectEnvironment = () => {
 const handleBeforeInstallPrompt = (e) => {
   console.log('beforeinstallprompt event fired', e)
   debugInfo.value += 'beforeinstallprompt fired; '
-  
+
   // Prevent the mini-infobar from appearing on mobile
   e.preventDefault()
-  
+
   // Save the event so it can be triggered later
   deferredPrompt = e
   canInstall.value = true
-  
+
   console.log('PWA install prompt ready')
   debugInfo.value += 'prompt ready; '
 }
@@ -170,10 +190,35 @@ const handleAppInstalled = () => {
   deferredPrompt = null
 }
 
-// Check if PWA install criteria are met
+// Track user engagement (Chrome requires ~30 seconds)
+const startEngagementTracking = () => {
+  if (engagementTimer) return // Already tracking
+
+  engagementTimer = setInterval(() => {
+    engagementTime.value += 1
+
+    // Show tip after 10 seconds if no install prompt
+    if (engagementTime.value === 10 && !canInstall.value && !isInstalled.value) {
+      showEngagementTip.value = true
+    }
+
+    // Chrome typically requires 30+ seconds
+    if (engagementTime.value >= 30 && !canInstall.value) {
+      debugInfo.value += `engagement: ${engagementTime.value}s; `
+      forceCheckInstallability()
+    }
+  }, 1000)
+}
+
+const stopEngagementTracking = () => {
+  if (engagementTimer) {
+    clearInterval(engagementTimer)
+    engagementTimer = null
+  }
+}
 const checkInstallCriteria = () => {
   if (!import.meta.client) return
-  
+
   const checks = {
     https: location.protocol === 'https:',
     serviceWorker: 'serviceWorker' in navigator,
@@ -181,11 +226,11 @@ const checkInstallCriteria = () => {
     standalone: window.matchMedia('(display-mode: standalone)').matches,
     beforeInstallPrompt: !!deferredPrompt
   }
-  
+
   debugInfo.value = Object.entries(checks)
     .map(([key, value]) => `${key}: ${value}`)
     .join('; ')
-  
+
   console.log('PWA Install Criteria:', checks)
   return checks
 }
@@ -193,14 +238,14 @@ const checkInstallCriteria = () => {
 // Force check for install availability (fallback method)
 const forceCheckInstallability = () => {
   if (!import.meta.client) return
-  
+
   // Sometimes the event fires before our listener is ready
   // Check if criteria are met manually
   const criteria = checkInstallCriteria()
-  
+
   if (criteria.https && criteria.serviceWorker && criteria.manifest && !criteria.standalone) {
     console.log('PWA criteria met, waiting for beforeinstallprompt...')
-    
+
     // Set a timeout to show manual instructions if prompt doesn't come
     setTimeout(() => {
       if (!canInstall.value && !isInstalled.value) {
@@ -217,16 +262,16 @@ const installPwa = async () => {
     console.log('No install prompt available')
     return
   }
-  
+
   try {
     // Show the install prompt
     const result = await deferredPrompt.prompt()
     console.log('Install prompt result:', result)
-    
+
     // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice
     console.log('User choice:', outcome)
-    
+
     if (outcome === 'accepted') {
       console.log('User accepted the install prompt')
       // Optional: Analytics tracking
@@ -236,11 +281,11 @@ const installPwa = async () => {
       // Optional: Analytics tracking  
       // gtag('event', 'pwa_install', { method: 'manual', outcome: 'dismissed' })
     }
-    
+
     // Reset the deferred prompt
     deferredPrompt = null
     canInstall.value = false
-    
+
   } catch (error) {
     console.error('Error during PWA installation:', error)
   }
@@ -250,25 +295,25 @@ const installPwa = async () => {
 onMounted(() => {
   console.log('Component mounted, setting up PWA install detection')
   detectEnvironment()
-  
+
   // Listen for the beforeinstallprompt event
   window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-  
+
   // Listen for the app installed event
   window.addEventListener('appinstalled', handleAppInstalled)
-  
+
   // Check if install prompt is already available (edge case)
   if (window.deferredPrompt) {
     deferredPrompt = window.deferredPrompt
     canInstall.value = true
     console.log('Found existing deferred prompt')
   }
-  
+
   // Force check after a delay to ensure everything is loaded
   setTimeout(() => {
     forceCheckInstallability()
   }, 1000)
-  
+
   // Additional check after page interaction (browsers often require user gesture)
   const checkAfterInteraction = () => {
     setTimeout(() => {
@@ -277,7 +322,7 @@ onMounted(() => {
       }
     }, 500)
   }
-  
+
   // Listen for user interactions that might trigger the prompt
   document.addEventListener('click', checkAfterInteraction, { once: true })
   document.addEventListener('touchstart', checkAfterInteraction, { once: true })
@@ -287,6 +332,9 @@ onUnmounted(() => {
   // Clean up event listeners
   window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
   window.removeEventListener('appinstalled', handleAppInstalled)
+
+  // Stop engagement tracking
+  stopEngagementTracking()
 })
 </script>
 
@@ -482,5 +530,43 @@ onUnmounted(() => {
   flex-direction: column;
   gap: 0.25rem;
   color: #fca5a5;
+}
+
+.engagement-tip {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #1e3a8a;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #3b82f6;
+}
+
+.tip-icon {
+  font-size: 2rem;
+  color: #60a5fa;
+  flex-shrink: 0;
+}
+
+.tip-content {
+  flex: 1;
+}
+
+.tip-title {
+  font-weight: 600;
+  color: #60a5fa;
+  margin-bottom: 0.25rem;
+}
+
+.tip-subtitle {
+  font-size: 0.875rem;
+  color: #bfdbfe;
+  margin-bottom: 0.5rem;
+}
+
+.tip-action {
+  font-size: 0.75rem;
+  color: #93c5fd;
+  font-style: italic;
 }
 </style>

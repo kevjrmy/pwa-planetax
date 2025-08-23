@@ -45,7 +45,7 @@ nav {
   display: flex;
   justify-content: center;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.9);
   height: 90px;
 }
 

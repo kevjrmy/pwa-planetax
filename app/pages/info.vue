@@ -45,9 +45,9 @@
             <Icon name="mdi:information-outline" />
           </div>
           <p class="status-title">Instalación Manual</p>
-          <p class="status-subtitle">
+          <small class="status-subtitle">
             Instala PlanetaX usando el menú de tu navegador
-          </p>
+          </small>
 
           <div class="manual-instructions">
             <h3>Instrucciones por navegador:</h3>
@@ -73,7 +73,6 @@
         </div>
       </div>
 
-      <!-- App Benefits -->
       <div class="benefits-section">
         <h2 class="section-title">
           <Icon name="mdi:star" />
@@ -111,17 +110,12 @@ definePageMeta({
   title: 'Info app'
 })
 
-// Use the PWA install composable
 const { canInstall, isInstalled, install } = usePwaInstall()
 </script>
 
 <style scoped>
 main {
   margin-bottom: 90px;
-}
-.content-wrapper {
-  max-width: 32rem;
-  margin: 0 auto;
 }
 
 .install-section,
@@ -134,7 +128,6 @@ main {
 
 .section-title {
   font-size: 1.25rem;
-  font-weight: 600;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -150,7 +143,6 @@ main {
 
 .install-description {
   color: #d1d5db;
-  font-size: 0.95rem;
   text-align: center;
 }
 
@@ -186,7 +178,7 @@ main {
 }
 
 .status-icon {
-  font-size: 3rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
 }
 
@@ -213,7 +205,6 @@ main {
 }
 
 .status-subtitle {
-  font-size: 0.9rem;
   color: #9ca3af;
   margin-bottom: 1.5rem;
 }
@@ -227,10 +218,7 @@ main {
 }
 
 .manual-instructions h3 {
-  font-weight: 600;
   margin-bottom: 1rem;
-  color: #f3f4f6;
-  font-size: 0.95rem;
 }
 
 .instruction-list {

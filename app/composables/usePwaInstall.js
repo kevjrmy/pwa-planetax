@@ -16,14 +16,14 @@ export function usePwaInstall() {
 
   // Handle the beforeinstallprompt event
   const handleBeforeInstallPrompt = (e) => {
+    console.log('beforeinstallprompt event fired')
+
     // Prevent the mini-infobar from appearing on mobile
     e.preventDefault()
 
     // Store the event so it can be triggered later
     deferredPrompt = e
     canInstall.value = true
-
-    console.log('PWA install prompt available')
   }
 
   // Handle app installation
@@ -66,13 +66,24 @@ export function usePwaInstall() {
     }
   }
 
-  // Setup event listeners
+  // Setup event listeners immediately when composable is used
   const setupListeners = () => {
     if (!import.meta.client) return
 
     checkIfInstalled()
+
+    // Check if prompt already exists (important for timing issues)
+    if (window.deferredPrompt) {
+      console.log('Found existing deferred prompt')
+      deferredPrompt = window.deferredPrompt
+      canInstall.value = true
+    }
+
+    // Listen for future prompts
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
     window.addEventListener('appinstalled', handleAppInstalled)
+
+    console.log('PWA install listeners set up')
   }
 
   // Clean up event listeners
@@ -83,7 +94,12 @@ export function usePwaInstall() {
     window.removeEventListener('appinstalled', handleAppInstalled)
   }
 
-  // Auto-setup on mount (optional)
+  // Setup immediately when composable is created (not waiting for onMounted)
+  if (import.meta.client) {
+    setupListeners()
+  }
+
+  // Also setup on mount as backup
   onMounted(() => {
     setupListeners()
   })

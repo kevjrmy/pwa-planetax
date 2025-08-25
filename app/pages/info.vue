@@ -4,8 +4,16 @@
       <section id="team">
         <ul>
           <li>Director proyecto: <strong>Carlos Martinez</strong></li>
-          <li>Desarrollo app: <strong><NuxtLink to="https://www.linkedin.com/in/kevin-jeremy" target="_blank">Kevin Jeremy <Icon name="mdi:external-link" /></NuxtLink></strong></li>
-          <li>Streaming: <strong><NuxtLink to="https://islahostingla.com/" target="_blank">Islahosting <Icon name="mdi:external-link" /></NuxtLink></strong></li>
+          <li>Desarrollo app: <strong>
+              <NuxtLink to="https://www.linkedin.com/in/kevin-jeremy" target="_blank">Kevin Jeremy
+                <Icon name="mdi:external-link" />
+              </NuxtLink>
+            </strong></li>
+          <li>Streaming: <strong>
+              <NuxtLink to="https://islahostingla.com/" target="_blank">Islahosting
+                <Icon name="mdi:external-link" />
+              </NuxtLink>
+            </strong></li>
           <li>Diseño gráfico: <strong>Karolarte</strong></li>
         </ul>
       </section>
@@ -28,18 +36,7 @@
           </button>
         </div>
 
-        <!-- Already Installed (only show on web, not PWA) -->
-        <div v-else-if="isInstalled" class="install-status installed">
-          <div class="status-icon success">
-            <Icon name="mdi:check-circle" />
-          </div>
-          <p class="status-title">¡App ya instalada!</p>
-          <p class="status-subtitle">
-            PlanetaX está disponible en tu pantalla de inicio
-          </p>
-        </div>
-
-        <!-- Manual Installation Instructions -->
+        <!-- Manual Installation Instructions (when can't install programmatically) -->
         <div v-else class="install-status not-available">
           <div class="status-icon info">
             <Icon name="mdi:information-outline" />
@@ -53,19 +50,27 @@
             <h3>Instrucciones por navegador:</h3>
             <div class="instruction-list">
               <div class="instruction-item">
-                <span class="bullet"><Icon name="material-symbols:android" style="color: #3DDC84;" /></span>
-                <span><strong>Chrome Android:</strong> Menú → "Añadir a pantalla de inicio"</span>
+                <span class="bullet">
+                  <Icon name="material-symbols:android" style="color: #3DDC84;" />
+                </span>
+                <span><strong>Chrome/Brave Android:</strong> Menú → "Añadir a pantalla de inicio"</span>
               </div>
               <div class="instruction-item">
-                <span class="bullet"><Icon name="mdi:apple" /></span>
+                <span class="bullet">
+                  <Icon name="mdi:apple" />
+                </span>
                 <span><strong>Safari iOS:</strong> Botón compartir → "Añadir a inicio"</span>
               </div>
               <div class="instruction-item">
-                <span class="bullet"><Icon name="material-symbols:laptop-chromebook-outline-rounded" /></span>
+                <span class="bullet">
+                  <Icon name="material-symbols:laptop-chromebook-outline-rounded" />
+                </span>
                 <span><strong>Desktop:</strong> Icono de instalación en la barra de URL</span>
               </div>
               <div class="instruction-item">
-                <span class="bullet"><Icon name="logos:microsoft-edge" /></span>
+                <span class="bullet">
+                  <Icon name="logos:microsoft-edge" />
+                </span>
                 <span><strong>Edge:</strong> Menú → "Apps" → "Instalar este sitio como app"</span>
               </div>
             </div>
@@ -110,7 +115,7 @@ definePageMeta({
   title: 'App info'
 })
 
-const { canInstall, isInstalled, install } = usePwaInstall()
+const { canInstall, install } = usePwaInstall()
 
 // Check if running as PWA (standalone mode)
 const isRunningAsPWA = ref(false)
@@ -119,6 +124,9 @@ onMounted(() => {
   if (import.meta.client) {
     isRunningAsPWA.value = window.matchMedia('(display-mode: standalone)').matches ||
       window.navigator.standalone === true
+
+    console.log('[PWA] Running as PWA:', isRunningAsPWA.value)
+    console.log('[PWA] Can install:', canInstall.value)
   }
 })
 </script>
@@ -249,6 +257,7 @@ main {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
+  font-size: 0.875rem;
   color: #d1d5db;
   line-height: 1.5;
 }

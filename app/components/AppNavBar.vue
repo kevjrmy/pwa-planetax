@@ -16,7 +16,7 @@
       <li>
         <NuxtLink to="/la-x-94-9" aria-current="page">
           <Icon name="material-symbols:radio-outline" style="height: 1.5rem; width: 1.5rem;" />
-          <span class="label">la X</span>
+          <span class="label">La X 94.9</span>
         </NuxtLink>
       </li>
       <!-- <li>
@@ -28,7 +28,7 @@
       <li>
         <NuxtLink to="/info" aria-current="page">
           <Icon name="material-symbols:info" style="height: 1.5rem; width: 1.5rem;" />
-          <span class="label">Info</span>
+          <span class="label">App Info</span>
         </NuxtLink>
       </li>
     </ul>

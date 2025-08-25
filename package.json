@@ -24,6 +24,8 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@iconify-json/material-symbols": "^1.2.32"
+    "@iconify-json/logos": "^1.2.9",
+    "@iconify-json/material-symbols": "^1.2.32",
+    "@iconify-json/mdi": "^1.2.3"
   }
 }

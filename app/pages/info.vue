@@ -3,15 +3,15 @@
     <div class="content-wrapper">
       <section id="team">
         <ul>
-          <li>Director proyecto: Carlos</li>
-          <li>Desarrollo app: Kevin Jeremy</li>
-          <li>Streaming: Islahosting</li>
-          <li>Diseño gráfico: Karola</li>
+          <li>Director proyecto: <strong>Carlos Martinez</strong></li>
+          <li>Desarrollo app: <strong><NuxtLink to="https://www.linkedin.com/in/kevin-jeremy" target="_blank">Kevin Jeremy <Icon name="mdi:external-link" /></NuxtLink></strong></li>
+          <li>Streaming: <strong><NuxtLink to="https://islahostingla.com/" target="_blank">Islahosting <Icon name="mdi:external-link" /></NuxtLink></strong></li>
+          <li>Diseño gráfico: <strong>Karolarte</strong></li>
         </ul>
       </section>
 
-      <!-- PWA Install Section -->
-      <div class="install-section">
+      <!-- PWA Install Section - Only show when NOT running as PWA -->
+      <div v-if="!isRunningAsPWA" class="install-section">
         <h2 class="section-title">
           <Icon name="mdi:download" />
           Instalar App
@@ -28,7 +28,7 @@
           </button>
         </div>
 
-        <!-- Already Installed -->
+        <!-- Already Installed (only show on web, not PWA) -->
         <div v-else-if="isInstalled" class="install-status installed">
           <div class="status-icon success">
             <Icon name="mdi:check-circle" />
@@ -54,7 +54,7 @@
             <div class="instruction-list">
               <div class="instruction-item">
                 <span class="bullet"><Icon name="material-symbols:android" style="color: #3DDC84;" /></span>
-                <span><strong>Chrome/Brave Android:</strong> Menú → "Añadir a pantalla de inicio"</span>
+                <span><strong>Chrome Android:</strong> Menú → "Añadir a pantalla de inicio"</span>
               </div>
               <div class="instruction-item">
                 <span class="bullet"><Icon name="mdi:apple" /></span>
@@ -107,15 +107,33 @@
 
 <script setup>
 definePageMeta({
-  title: 'Info app'
+  title: 'App info'
 })
 
 const { canInstall, isInstalled, install } = usePwaInstall()
+
+// Check if running as PWA (standalone mode)
+const isRunningAsPWA = ref(false)
+
+onMounted(() => {
+  if (import.meta.client) {
+    isRunningAsPWA.value = window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true
+  }
+})
 </script>
 
 <style scoped>
 main {
   margin-bottom: 90px;
+}
+
+#team {
+  line-height: 2;
+}
+
+#team a {
+  text-decoration: underline;
 }
 
 .install-section,
@@ -231,7 +249,6 @@ main {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  font-size: 0.875rem;
   color: #d1d5db;
   line-height: 1.5;
 }

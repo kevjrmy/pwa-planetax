@@ -30,7 +30,7 @@ body {
     Arial,
     sans-serif;
   font-size: 1.06em;
-  color: white;
+  color: whitesmoke;
   background: url('/img/background.png') no-repeat center center fixed;
   background-size: cover;
 }

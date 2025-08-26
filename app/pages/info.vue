@@ -207,7 +207,7 @@ main {
 
 .status-icon {
   font-size: 2rem;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .status-icon.success {

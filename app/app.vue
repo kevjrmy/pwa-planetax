@@ -31,14 +31,14 @@ body {
     sans-serif;
   font-size: 1.06em;
   color: white;
-  background-color: black;
   background: url('/img/background.png') no-repeat center center fixed;
   background-size: cover;
 }
 
 /* Global sizing + padding */
 #planetax {
-  padding: 1rem;
+  padding: 2rem 1rem;
+  background-color: black;
 }
 
 main {
@@ -47,7 +47,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  min-height: calc(100svh - 80px - 90px - 1rem);
+  min-height: calc(100svh - 80px - 90px - 2rem);
 }
 
 /* Box sizing rules */

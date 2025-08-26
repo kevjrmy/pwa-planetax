@@ -1,3 +1,4 @@
+      
 <template>
   <main>
     <div class="content-wrapper">
@@ -9,7 +10,7 @@
                 <Icon name="mdi:external-link" />
               </NuxtLink>
             </strong></li>
-          <li>Streaming: <strong>
+          <li>Servicio streaming: <strong>
               <NuxtLink to="https://islahostingla.com/" target="_blank">Islahosting
                 <Icon name="mdi:external-link" />
               </NuxtLink>
@@ -25,19 +26,11 @@
           Instalar App
         </h2>
 
-        <!-- Install Button - Only show if actually available -->
-        <div v-if="canInstall" class="install-available">
-          <p class="install-description">
-            ¡Instala PlanetaX como aplicación para una mejor experiencia!
-          </p>
-          <button @click="install" class="install-button">
-            <Icon name="mdi:cellphone-arrow-down" />
-            <span>Instalar PlanetaX App</span>
-          </button>
-        </div>
+        <!-- PWA Install Button Component -->
+        <PwaInstallButton @install-success="onInstallSuccess" @install-failed="onInstallFailed" />
 
-        <!-- Manual Installation Instructions (when can't install programmatically) -->
-        <div v-else class="install-status not-available">
+        <!-- Manual Installation Instructions -->
+        <div class="install-status not-available">
           <div class="status-icon info">
             <Icon name="mdi:information-outline" />
           </div>
@@ -112,13 +105,23 @@
 
 <script setup>
 definePageMeta({
-  title: 'App info'
+  title: 'Info app'
 })
 
-const { canInstall, install } = usePwaInstall()
+const { canInstall } = usePwaInstall()
 
 // Check if running as PWA (standalone mode)
 const isRunningAsPWA = ref(false)
+
+const onInstallSuccess = () => {
+  console.log('[PWA] Install success callback')
+  // You could show a success message here
+}
+
+const onInstallFailed = (error) => {
+  console.log('[PWA] Install failed callback:', error)
+  // You could show an error message here
+}
 
 onMounted(() => {
   if (import.meta.client) {

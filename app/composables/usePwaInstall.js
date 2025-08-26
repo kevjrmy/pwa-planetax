@@ -1,38 +1,33 @@
 import { ref, readonly } from 'vue'
 
-// Global state that persists across page navigation
 let globalDeferredPrompt = null
 let globalCanInstall = ref(false)
 let listenersSetup = false
 
 export function usePwaInstall() {
   const canInstall = globalCanInstall
-  
-  // Handle the beforeinstallprompt event
+
   const handleBeforeInstallPrompt = (e) => {
-    console.log('[PWA] beforeinstallprompt event fired!')
-    
-    // Prevent the mini-infobar
+    console.log('[PWA] beforeinstallprompt fired ✅')
+
     e.preventDefault()
-    
-    // Store globally so it persists across navigation
     globalDeferredPrompt = e
     globalCanInstall.value = true
-    
-    console.log('[PWA] Install prompt stored globally ✅')
+
+    // Persist across reloads in same session
+    sessionStorage.setItem('canInstallPWA', 'true')
   }
 
-  // Handle app installation
   const handleAppInstalled = () => {
     console.log('[PWA] App was installed ✅')
     globalCanInstall.value = false
     globalDeferredPrompt = null
+    sessionStorage.removeItem('canInstallPWA')
   }
 
-  // Install function
   const install = async () => {
     console.log('[PWA] Install button clicked')
-    
+
     if (!globalDeferredPrompt) {
       console.warn('[PWA] No install prompt available')
       return false
@@ -41,44 +36,39 @@ export function usePwaInstall() {
     try {
       await globalDeferredPrompt.prompt()
       const { outcome } = await globalDeferredPrompt.userChoice
-      
       console.log('[PWA] Install outcome:', outcome)
-      
+
       if (outcome === 'accepted') {
         globalCanInstall.value = false
         globalDeferredPrompt = null
+        sessionStorage.removeItem('canInstallPWA')
         return true
+      } else {
+        // User dismissed → keep canInstall true so button still shows
+        return false
       }
-      
-      return false
-      
     } catch (error) {
       console.error('[PWA] Install error:', error)
       return false
     }
   }
 
-  // Setup listeners only once globally
   const setupListeners = () => {
     if (!import.meta.client || listenersSetup) return
+    console.log('[PWA] Setting up event listeners...')
 
-    console.log('[PWA] Setting up global event listeners...')
-    
-    // Check if prompt already exists from previous navigation
-    if (window.deferredPrompt) {
-      console.log('[PWA] Found existing deferred prompt from previous navigation')
-      globalDeferredPrompt = window.deferredPrompt
+    // Restore state if we had beforeinstallprompt earlier
+    if (sessionStorage.getItem('canInstallPWA') === 'true') {
       globalCanInstall.value = true
+      console.log('[PWA] Restored canInstall from session ✅')
     }
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
     window.addEventListener('appinstalled', handleAppInstalled)
-    
+
     listenersSetup = true
-    console.log('[PWA] Global event listeners set up ✅')
   }
 
-  // Setup immediately when composable is first used
   if (import.meta.client) {
     setupListeners()
   }

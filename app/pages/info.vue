@@ -1,4 +1,3 @@
-      
 <template>
   <main>
     <div class="content-wrapper">

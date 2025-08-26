@@ -104,6 +104,8 @@ button {
   background-color: transparent;
   outline: none;
   border: none;
+  display: flex;
+  align-items: center;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

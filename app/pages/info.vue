@@ -2,7 +2,7 @@
   <main>
     <div class="content-wrapper">
       <section id="team">
-        <ul>
+        <ul role="list">
           <li>Director proyecto: <strong>Carlos Martinez</strong></li>
           <li>Desarrollo app: <strong>
               <NuxtLink to="https://www.linkedin.com/in/kevin-jeremy" target="_blank">Kevin Jeremy
@@ -140,6 +140,9 @@ main {
 
 #team {
   line-height: 2;
+  width: fit-content;
+  margin: auto;
+  padding: 1rem 0;
 }
 
 #team a {

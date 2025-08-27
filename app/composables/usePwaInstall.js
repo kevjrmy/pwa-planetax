@@ -69,12 +69,9 @@ export function usePwaInstall() {
     listenersSetup = true
   }
 
-  if (import.meta.client) {
-    setupListeners()
-  }
-
   return {
     canInstall: readonly(canInstall),
-    install
+    install,
+    setupListeners
   }
 }

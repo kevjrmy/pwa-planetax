@@ -1,0 +1,7 @@
+import { usePwaInstall } from '@/composables/usePwaInstall'
+
+export default defineNuxtPlugin(() => {
+  if (import.meta.client) {
+    usePwaInstall()
+  }
+})

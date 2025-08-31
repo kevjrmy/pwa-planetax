@@ -31,14 +31,14 @@ body {
     sans-serif;
   font-size: 1.06em;
   color: whitesmoke;
-  background: url('/img/background.png') no-repeat center center fixed;
-  background-size: cover;
+  background-color: black;
 }
 
 /* Global sizing + padding */
 #planetax {
   padding: 2rem 1rem;
-  background-color: black;
+  background: url('/img/background.png') no-repeat center center fixed;
+  background-size: cover;
 }
 
 main {
@@ -121,6 +121,12 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (min-width: 600px) {
+  #planetax {
+    background-size: contain;
   }
 }
 </style>

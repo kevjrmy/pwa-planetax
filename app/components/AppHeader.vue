@@ -26,7 +26,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80px;
+  height: 100px;
 }
 
 .logo {
@@ -35,8 +35,8 @@ header {
 }
 
 img {
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   object-fit: contain;
 }
 

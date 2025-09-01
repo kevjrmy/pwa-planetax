@@ -1,12 +1,15 @@
 <template>
   <header>
-    <NuxtImg v-if="isHome" src="/img/PlanetaX-app.png" alt="PlanetaX logo" class="logo" />
-
-    <NuxtLink v-else to="/" class="back-btn">
+    <NuxtLink v-if="!isHome" class="back-btn">
       <Icon name="material-symbols:arrow-left-alt-rounded" style="height: 2rem; width: 2rem;" />
     </NuxtLink>
 
-    <h1 v-if="!isHome" class="page-title">
+    <h1 v-if="isHome" class="page-title">
+      <NuxtImg v-if="isHome" src="/img/PlanetaX-app.png" alt="PlanetaX logo" class="logo" />
+      <span>Bienvenido a PlanetaX</span>
+    </h1>
+
+    <h1 v-else class="page-title">
       {{ pageTitle }}
     </h1>
   </header>
@@ -26,17 +29,18 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 80px;
 }
 
 .logo {
   display: flex;
   justify-content: center;
+  margin: auto;
 }
 
 img {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   object-fit: contain;
 }
 

@@ -1,23 +1,6 @@
 <template>
   <main>
     <div class="content-wrapper">
-      <section id="team">
-        <ul>
-          <li>Director proyecto: <strong>Carlos Martinez</strong></li>
-          <li>Desarrollo app: <strong>
-              <NuxtLink to="https://www.linkedin.com/in/kevin-jeremy" target="_blank">Kevin Jeremy
-                <Icon name="mdi:external-link" />
-              </NuxtLink>
-            </strong></li>
-          <li>Servicio streaming: <strong>
-              <NuxtLink to="https://islahostingla.com/" target="_blank">Islahosting
-                <Icon name="mdi:external-link" />
-              </NuxtLink>
-            </strong></li>
-          <li>Diseño gráfico: <strong>Karolarte</strong></li>
-        </ul>
-      </section>
-
       <!-- PWA Install Section - Only show when NOT running as PWA -->
       <div v-if="!isRunningAsPWA" class="install-section">
         <h2 class="section-title">
@@ -98,6 +81,22 @@
           </li>
         </ul>
       </div>
+      <section id="team">
+        <ul>
+          <li>Director proyecto: <strong>Carlos Martinez</strong></li>
+          <li>Desarrollo app: <strong>
+              <NuxtLink to="https://www.linkedin.com/in/kevin-jeremy" target="_blank">Kevin Jeremy
+                <Icon name="mdi:external-link" />
+              </NuxtLink>
+            </strong></li>
+          <li>Servicio streaming: <strong>
+              <NuxtLink to="https://islahostingla.com/" target="_blank">Islahosting
+                <Icon name="mdi:external-link" />
+              </NuxtLink>
+            </strong></li>
+          <li>Diseño gráfico: <strong>Karolarte</strong></li>
+        </ul>
+      </section>
     </div>
   </main>
 </template>
@@ -151,7 +150,7 @@ main {
 .benefits-section {
   border-radius: 0.75rem;
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin: 1.5rem 0;
   border: 1px solid #333;
 }
 

@@ -1,11 +1,10 @@
 <template>
   <header>
-    <NuxtLink v-if="!isHome" class="back-btn">
+    <NuxtLink v-if="!isHome" class="back-btn" to="/">
       <Icon name="material-symbols:arrow-left-alt-rounded" style="height: 2rem; width: 2rem;" />
     </NuxtLink>
 
     <h1 v-if="isHome" class="page-title">
-      <NuxtImg v-if="isHome" src="/img/PlanetaX-app.png" alt="PlanetaX logo" class="logo" />
       <span>Bienvenido a PlanetaX</span>
     </h1>
 

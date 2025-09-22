@@ -4,13 +4,8 @@
       <Icon name="material-symbols:arrow-left-alt-rounded" style="height: 2rem; width: 2rem;" />
     </NuxtLink>
 
-    <h1 v-if="isHome" class="page-title">
-      <span>Bienvenido a PlanetaX</span>
-    </h1>
-
-    <h1 v-else class="page-title">
-      {{ pageTitle }}
-    </h1>
+    <h1 v-if="isHome" class="home-title">Bienvenido a PlanetaX</h1>
+    <h1 v-else class="page-title">{{ pageTitle }}</h1>
   </header>
 </template>
 
@@ -31,18 +26,6 @@ header {
   height: 80px;
 }
 
-.logo {
-  display: flex;
-  justify-content: center;
-  margin: auto;
-}
-
-img {
-  height: 80px;
-  width: 80px;
-  object-fit: contain;
-}
-
 .back-btn {
   position: absolute;
   left: 0;
@@ -50,10 +33,17 @@ img {
   transform: translateY(-50%);
 }
 
-.page-title {
+.page-title,
+.home-title {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   text-align: center;
+  padding: 0 3rem 0 3rem;
+}
+
+.home-title {
+  font-size: 1.5rem;
+  padding: 0;
 }
 </style>

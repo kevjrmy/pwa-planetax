@@ -10,7 +10,7 @@
       <li>
         <NuxtLink to="/planeta-network-103-4" aria-current="page">
           <Icon name="material-symbols:radio" style="height: 1.5rem; width: 1.5rem;" />
-          <span class="label">Planeta Network</span>
+          <span class="label">103.4 FM</span>
         </NuxtLink>
       </li>
       <li>

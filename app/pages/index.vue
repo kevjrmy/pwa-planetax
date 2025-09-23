@@ -35,14 +35,14 @@ ul {
 }
 
 .radio {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
 }
 
 .tv {
-  width: 180px;
-  height: 100px;
+  width: 140px;
+  height: 80px;
   object-fit: contain;
 }
 </style>

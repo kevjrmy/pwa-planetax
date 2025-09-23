@@ -155,8 +155,8 @@ watch(audioRef, (newAudioRef) => {
 
 <style scoped>
 img {
-  height: 120px;
-  width: 120px;
+  height: 100px;
+  width: 100px;
   object-fit: contain;
 }
 

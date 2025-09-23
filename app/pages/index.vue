@@ -1,5 +1,6 @@
 <template>
   <main>
+    <NuxtImg src="/img/PlanetaX-app.png" class="logo" />
     <ul role="list">
       <li>
         <NuxtLink to="/la-x-94-9">
@@ -34,6 +35,7 @@ ul {
   align-items: center;
 }
 
+.logo,
 .radio {
   width: 100px;
   height: 100px;

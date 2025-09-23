@@ -29,7 +29,7 @@ definePageMeta({
 
 <style scoped>
 main#home {
-  gap: 1rem;
+  gap: 0;
   justify-content: start;
 }
 

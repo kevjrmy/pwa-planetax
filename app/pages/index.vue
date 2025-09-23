@@ -31,7 +31,6 @@ definePageMeta({
 main#home {
   gap: 1rem;
   justify-content: start;
-  padding-bottom: 0;
 }
 
 ul {

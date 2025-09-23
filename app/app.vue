@@ -48,7 +48,7 @@ main {
   justify-content: center;
   gap: 2rem;
   min-height: calc(100svh - 80px - 80px - 1rem);
-  padding-bottom: 90px;
+  padding-bottom: 80px;
 }
 
 /* Box sizing rules */

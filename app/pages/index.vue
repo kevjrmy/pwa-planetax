@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main id="home">
     <NuxtImg src="/img/PlanetaX-app.png" class="logo" />
     <ul role="list">
       <li>
@@ -28,23 +28,30 @@ definePageMeta({
 </script>
 
 <style scoped>
+main#home {
+  gap: 1rem;
+  justify-content: start;
+  padding-bottom: 0;
+}
+
 ul {
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
-  row-gap: 2rem;
+  row-gap: 1rem;
   align-items: center;
 }
 
 .logo,
 .radio {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
 }
 
 .tv {
-  width: 140px;
-  height: 80px;
+  width: 120px;
+  height: 60px;
   object-fit: contain;
 }
 </style>

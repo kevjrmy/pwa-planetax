@@ -47,8 +47,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  min-height: calc(100svh - 80px - 80px - 1rem);
-  padding-bottom: calc(1rem + 80px);
+  height: calc(100svh - 80px - 80px - 1rem);
 }
 
 /* Box sizing rules */

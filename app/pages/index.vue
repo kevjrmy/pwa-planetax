@@ -1,23 +1,27 @@
 <template>
   <main id="home">
-    <NuxtImg src="/img/PlanetaX-app.png" class="logo" />
-    <ul role="list">
-      <li>
-        <NuxtLink to="/la-x-94-9">
-          <NuxtImg src="/img/x_949_fm_logo_white.png" class="radio" />
-        </NuxtLink>
-      </li>
-      <li>
-        <NuxtLink to="/planeta-network-103-4">
-          <NuxtImg src="/img/planeta_network_radio_logo.png" class="radio" />
-        </NuxtLink>
-      </li>
-      <li>
-        <NuxtLink to="/planeta-tv">
-          <NuxtImg src="/img/PLANETA--X-TV-LOGO.png" class="tv" />
-        </NuxtLink>
-      </li>
-    </ul>
+    <div class="hero">
+      <NuxtImg src="/img/PlanetaX-app.png" class="logo" />
+      <section>
+        <ul role="list">
+          <li>
+            <NuxtLink to="/la-x-94-9">
+              <NuxtImg src="/img/x_949_fm_logo_white.png" class="radio" />
+            </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/planeta-network-103-4">
+              <NuxtImg src="/img/planeta_network_radio_logo.png" class="radio" />
+            </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/planeta-tv">
+              <NuxtImg src="/img/PLANETA--X-TV-LOGO.png" class="tv" />
+            </NuxtLink>
+          </li>
+        </ul>
+      </section>
+    </div>
   </main>
 </template>
 
@@ -33,11 +37,28 @@ main#home {
   justify-content: start;
 }
 
-ul {
-  margin-top: 3rem;
+.hero {
   display: flex;
   flex-direction: column;
-  row-gap: 1rem;
+  height: 100%;
+  gap: 2rem;
+}
+
+img {
+  margin: auto;
+}
+
+section {
+  height: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
   align-items: center;
 }
 

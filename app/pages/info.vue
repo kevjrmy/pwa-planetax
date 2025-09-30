@@ -137,6 +137,10 @@ main {
   margin-bottom: 90px;
 }
 
+.content-wrapper {
+  padding-bottom: calc(80px + 1rem)
+}
+
 #team {
   line-height: 2;
   padding: 1rem 0;

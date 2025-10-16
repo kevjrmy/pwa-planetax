@@ -64,13 +64,15 @@ ul {
 .radio {
   width: 6rem;
   height: 6rem;
+  min-width: 100px;
+  min-height: 100px;
   object-fit: contain;
   max-height: 160px;
   max-width: 160px;
 }
 
 .tv {
-  width: 8rem;
+  width: 10rem;
   height: 6rem;
   object-fit: contain;
   max-height: 160px;

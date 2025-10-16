@@ -18,7 +18,7 @@ const iframeSrc = ref('https://planetanetworkradio.com/tv/?autoplay=1&muted=1')
 <style scoped>
 img {
   height: 120px;
-  width: 120px;
+  width: 160px;
   object-fit: contain;
 }
 </style>

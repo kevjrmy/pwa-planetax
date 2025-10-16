@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main id="info">
     <div class="content-wrapper">
       <!-- PWA Install Section - Only show when NOT running as PWA -->
       <div v-if="!isRunningAsPWA" class="install-section">
@@ -133,10 +133,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-main {
-  margin-top: 160px;
-  margin-bottom: 160px;
-  padding-top: 8rem;
+#info {
+  height: 100% !important;
 }
 
 .content-wrapper {

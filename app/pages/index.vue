@@ -1,7 +1,6 @@
 <template>
   <main id="home">
     <div class="hero">
-      <NuxtImg src="/img/PlanetaX-app.png" class="logo" />
       <section>
         <ul role="list">
           <li>
@@ -62,16 +61,19 @@ ul {
   align-items: center;
 }
 
-.logo,
 .radio {
-  width: 80px;
-  height: 80px;
+  width: 6rem;
+  height: 6rem;
   object-fit: contain;
+  max-height: 160px;
+  max-width: 160px;
 }
 
 .tv {
-  width: 120px;
-  height: 60px;
+  width: 8rem;
+  height: 6rem;
   object-fit: contain;
+  max-height: 160px;
+  max-width: 160px;
 }
 </style>

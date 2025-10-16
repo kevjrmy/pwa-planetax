@@ -74,8 +74,10 @@ ul {
 .tv {
   width: 10rem;
   height: 6rem;
+  min-width: 120px;
+  min-height: 60px;
   object-fit: contain;
-  max-height: 160px;
-  max-width: 160px;
+  max-height: 120px;
+  max-width: 200px;
 }
 </style>

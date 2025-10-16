@@ -36,7 +36,7 @@ body {
 
 /* Global sizing + padding */
 #planetax {
-  padding: 1rem;
+  padding: 3rem 1rem 1rem 1rem;
   background: url('/img/background.png') no-repeat center center fixed;
   background-size: cover;
 }
@@ -47,7 +47,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  height: calc(100svh - 80px - 80px - 1rem);
+  height: calc(100svh - 80px - 80px - 3rem);
 }
 
 /* Box sizing rules */

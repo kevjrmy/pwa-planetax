@@ -134,8 +134,9 @@ onMounted(() => {
 
 <style scoped>
 main {
-  margin-top: calc(160px + 3rem);
-  margin-bottom: 80px;
+  margin-top: 160px;
+  margin-bottom: 160px;
+  padding-top: 8rem;
 }
 
 .content-wrapper {

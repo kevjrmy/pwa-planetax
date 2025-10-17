@@ -53,7 +53,7 @@
         </div>
       </div>
 
-      <div class="benefits-section">
+      <div zzclass="benefits-section">
         <h2 class="section-title">
           <Icon name="mdi:star" />
           ¿Por qué instalar?
@@ -108,26 +108,11 @@ definePageMeta({
 
 const { canInstall } = usePwaInstall()
 
-// Check if running as PWA (standalone mode)
 const isRunningAsPWA = ref(false)
-
-const onInstallSuccess = () => {
-  console.log('[PWA] Install success callback')
-  // You could show a success message here
-}
-
-const onInstallFailed = (error) => {
-  console.log('[PWA] Install failed callback:', error)
-  // You could show an error message here
-}
 
 onMounted(() => {
   if (import.meta.client) {
-    isRunningAsPWA.value = window.matchMedia('(display-mode: standalone)').matches ||
-      window.navigator.standalone === true
-
-    console.log('[PWA] Running as PWA:', isRunningAsPWA.value)
-    console.log('[PWA] Can install:', canInstall.value)
+    isRunningAsPWA.value = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true
   }
 })
 </script>

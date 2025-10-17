@@ -1,6 +1,6 @@
 <template>
   <nav aria-label="Main navigation" class="bottom-nav">
-    <ul role="list">
+    <ul role="list" :class="{ 'standalone-grid': isStandalone }">
       <li>
         <NuxtLink to="/" aria-current="page">
           <Icon name="material-symbols:home" style="height: 1.5rem; width: 1.5rem;" />
@@ -25,7 +25,7 @@
           <span class="label">TV</span>
         </NuxtLink>
       </li>
-      <li>
+      <li v-if="!isStandalone">
         <NuxtLink to="/info" aria-current="page">
           <Icon name="material-symbols:info" style="height: 1.5rem; width: 1.5rem;" />
           <span class="label">Info</span>
@@ -34,6 +34,14 @@
     </ul>
   </nav>
 </template>
+
+<script setup>
+const isStandalone = ref(false)
+
+onMounted(() => {
+  isStandalone.value = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true
+})
+</script>
 
 <style lang="css" scoped>
 nav {
@@ -57,6 +65,10 @@ ul {
   text-align: center;
   column-gap: 0.5rem;
   font-size: small;
+}
+
+ul.standalone-grid {
+  grid-template-columns: repeat(4, 1fr);
 }
 
 li>a {
